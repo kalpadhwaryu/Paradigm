@@ -15,7 +15,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col className="text-center py-3">
-            Made by{" "}
+            Made with ❤️ by{" "}
             <a
               target="_blank"
               rel="noreferrer"

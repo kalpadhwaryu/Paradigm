@@ -25,6 +25,13 @@ const ideas = [
       "Made my first App in React JS, feels awesome to learn something new. I aim to be a full stack dev someday",
     category: "Learning",
   },
+  {
+    _id: 5,
+    title: "Fuck You",
+    content:
+      "Made my first App in React JS, feels awesome to learn something new. I aim to be a full stack dev someday",
+    category: "Learning",
+  },
 ];
 
 module.exports = ideas;

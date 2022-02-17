@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainPage from "../../components/MainPage";
 import { Link } from "react-router-dom";
 import { Accordion, Badge, Button } from "react-bootstrap";
-import ideas from "../../data/ideas";
+// import ideas from "../../data/ideas";
 import AccordionItem from "react-bootstrap/esm/AccordionItem";
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
+import axios from "axios";
 
 const MyIdeas = () => {
+  const [myIdeas, setMyIdeas] = useState([]);
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure ?")) {
     }
   };
+
+  const fetchIdeas = async () => {
+    const myIdeas = await axios.get(`/api/ideas`);
+    setMyIdeas(myIdeas.data);
+  };
+
+  useEffect(() => {
+    fetchIdeas();
+  }, []);
+
   return (
     <div>
       <MainPage title="Welcome Kalp Adhwaryu">
@@ -20,8 +33,8 @@ const MyIdeas = () => {
             Add idea
           </Button>
         </Link>
-        {ideas.map((idea) => (
-          <Accordion>
+        {myIdeas.map((idea) => (
+          <Accordion key={idea._id}>
             <AccordionItem eventKey="0" style={{ margin: 10 }}>
               <AccordionHeader style={{ display: "flex" }}>
                 <span
@@ -49,11 +62,11 @@ const MyIdeas = () => {
               </AccordionHeader>
 
               <AccordionBody>
-                <h8>
+                <h6>
                   <Badge pill bg="success">
                     {idea.category}
                   </Badge>
-                </h8>
+                </h6>
                 <blockquote className="blockquote mb-0">
                   <p>{idea.content}</p>
                   <footer className="blockquote-footer">Added on DATE</footer>
