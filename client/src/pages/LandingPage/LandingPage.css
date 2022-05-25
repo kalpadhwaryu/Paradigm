@@ -34,13 +34,6 @@
   margin-inline: 20px;
 }
 
-.quote{
-  margin-top: 80px;
-  margin-bottom: -50px;
-  font-size: 20px;
-  font-style: italic;
-}
-
 @media only screen and (min-width: 1200px) {
   .buttonContainer {
     padding: 0 200px;

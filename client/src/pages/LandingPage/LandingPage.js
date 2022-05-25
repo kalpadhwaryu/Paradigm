@@ -9,7 +9,7 @@ const LandingPage = () => {
         <Row>
           <div className="intro-text">
             <div>
-              <h1 className="title">Intuition</h1>
+              <h1 className="title">Paradigm</h1>
               <p className="subtitle">Bring ideas to reality</p>
             </div>
             <div className="buttonContainer">
@@ -27,8 +27,7 @@ const LandingPage = () => {
                   Signup
                 </Button>
               </a>
-            </div>
-            <div className="quote">"The only real valuable thing is intuition." <div>-Albert Einstein</div> </div>
+            </div>            
           </div>
         </Row>
       </Container>

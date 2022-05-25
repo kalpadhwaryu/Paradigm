@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand><Link to="/"> Intuition</Link></Navbar.Brand>
+        <Navbar.Brand><Link to="/"> Paradigm</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="m-auto">
