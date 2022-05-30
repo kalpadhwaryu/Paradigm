@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainPage from "../../components/MainPage";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions/userActions";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -15,40 +16,32 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
-  const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const [imgUploaded, setImgUploaded] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/myideas");
+    }
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmpassword) {
       setMessage("Passwords don't match!");
-    } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        setLoading(true);
-        const { data } = await axios.post(
-          "api/users/register",
-          { name, email, password, pic },
-          config
-        );
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        setLoading(false);
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+    }    
+    else {
+      dispatch(register(name, email, password, pic));
     }
   };
 
-  const postDetails = (pics) => {
+  const postDetails = () => {
     window.cloudinary
       .createUploadWidget(
         {
@@ -65,11 +58,7 @@ const RegisterPage = () => {
         }
       )
       .open();
-    if (!pics) {
-      return setPicMessage("Please select an image");
-    }
-    setPicMessage(null);
-};
+  };
 
   return (
     <MainPage title="REGISTER">
@@ -115,28 +104,14 @@ const RegisterPage = () => {
               value={confirmpassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-          </Form.Group>
-          {picMessage && (
-            <ErrorMessage variant="danger" children={picMessage} />
-          )}
+          </Form.Group>          
           <Form.Group className="mb-3" controlId="pic">
-            <Form.Label>Profile Picture</Form.Label>
-            {/* <Form.Control
-              id="custom-file"
-              type="file"
-              label="Upload Profile Picture"
-              custom
-              onChange={(e) => postDetails(e.target.files[0])}
+            <Form.Label>Profile Picture</Form.Label>            
+            <Button
+              variant="outline-primary"
               onClick={postDetails}
-            /> */}
-            {/* <Form.Control
-              id="custom-file"
-              type="file"
-              label="Upload Profile Picture"
-              custom
-              onChange={(e) => postDetails(e.target.files[0])}
-            /> */}
-            <Button variant="outline-primary" onClick={postDetails} className="mx-3">
+              className="mx-3"
+            >
               {imgUploaded ? "Image Uploaded" : "Choose File"}
             </Button>
           </Form.Group>
