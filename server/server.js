@@ -3,6 +3,7 @@ const ideas = require("./data/ideas");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
+const ideaRoutes = require("./routes/ideaRoutes");
 const { notFound, errorHandler } = require("./middlewares/ErrorMW");
 
 const app = express();
@@ -15,11 +16,12 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-app.get("/api/ideas", (req, res) => {
-  res.json(ideas);
-});
+// app.get("/api/ideas", (req, res) => {
+//   res.json(ideas);
+// });
 
 app.use("/api/users", userRoutes);
+app.use("/api/ideas", ideaRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
