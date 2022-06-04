@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 
-export const Header = () => {
+export const Header = ({ setSearch }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ export const Header = () => {
                 className=""
                 aria-label="Search"
                 style={{ width: 400 }}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </Form>
           </Nav>

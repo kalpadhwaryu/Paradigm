@@ -20,8 +20,6 @@ const getIdeaById = expressAsyncHandler(async (req, res) => {
   } else {
     res.status(404).json({ message: "Idea not found" });
   }
-
-  res.json(idea);
 });
 
 //@description     Create single Idea
