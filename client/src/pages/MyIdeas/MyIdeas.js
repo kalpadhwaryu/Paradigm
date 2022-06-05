@@ -73,6 +73,9 @@ const MyIdeas = ({ search }) => {
             .filter((filteredIdea) =>
               filteredIdea.title.toLowerCase().includes(search.toLowerCase())
             )
+            .filter((filteredIdea) =>
+              filteredIdea.user === userInfo._id
+            )
             .reverse()
             .map((idea) => (
               <Accordion key={idea._id}>
