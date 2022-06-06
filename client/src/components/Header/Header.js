@@ -8,11 +8,13 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 
 export const Header = ({ setSearch }) => {
   const navigate = useNavigate();
+
+  const location = useLocation()
 
   const dispatch = useDispatch();
 
@@ -33,35 +35,45 @@ export const Header = ({ setSearch }) => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="m-auto">
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className=""
-                aria-label="Search"
-                style={{ width: 400 }}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Form>
+            {location.pathname === "/myideas" ? (
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className=""
+                  aria-label="Search"
+                  style={{ width: 400 }}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Form>
+            ) : (
+              <></>
+            )}
           </Nav>
           <Nav
             className=" my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link>
-              <Link to="/myideas">My Ideas</Link>
-            </Nav.Link>
-            <NavDropdown title="Kalp Adhwaryu" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logoutHandler}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
+            {userInfo ? (
+              <>
+                <Nav.Link>
+                  <Link to="/myideas">My Ideas</Link>
+                </Nav.Link>
+                <NavDropdown title={userInfo.name} id="navbarScrollingDropdown">
+                  <NavDropdown.Item>
+                    <Link to="/profile">My Profile</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <Nav.Link>
+                <Link to="/login">Login</Link>
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

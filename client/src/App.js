@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import AddIdea from "./pages/AddIdea/AddIdea";
 import SingleIdea from "./pages/SingleIdea/SingleIdea";
 import { useState } from "react";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/myideas" element={<MyIdeas search={search} />} />
           <Route path="/addidea" element={<AddIdea />} />
           <Route path="/idea/:id" element={<SingleIdea />} />

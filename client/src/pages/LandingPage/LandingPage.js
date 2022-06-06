@@ -5,14 +5,14 @@ import "./LandingPage.css";
 
 const LandingPage = () => {
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
-  //   if (userInfo) {
-  //     navigate("/myideas")
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      navigate("/myideas")
+    }
+  }, [navigate]);
 
   return (
     <div className="main">
