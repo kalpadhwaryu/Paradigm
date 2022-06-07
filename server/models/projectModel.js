@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ideaSchema = mongoose.Schema(
+const projectSchema = mongoose.Schema(
   {
     title: {
       type: String,
@@ -28,6 +28,6 @@ const ideaSchema = mongoose.Schema(
   }
 );
 
-const Idea = mongoose.model("Idea", ideaSchema);
+const Project = mongoose.model("Project", projectSchema);
 
-module.exports = Idea;
+module.exports = Project;

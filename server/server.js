@@ -3,7 +3,7 @@ const ideas = require("./data/ideas");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
-const ideaRoutes = require("./routes/ideaRoutes");
+const projectRoutes = require("./routes/projectRoutes");
 const { notFound, errorHandler } = require("./middlewares/ErrorMW");
 
 const app = express();
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 // });
 
 app.use("/api/users", userRoutes);
-app.use("/api/ideas", ideaRoutes);
+app.use("/api/projects", projectRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

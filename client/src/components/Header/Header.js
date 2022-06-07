@@ -35,7 +35,7 @@ export const Header = ({ setSearch }) => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="m-auto">
-            {location.pathname === "/myideas" ? (
+            {location.pathname === "/myprojects" ? (
               <Form className="d-flex">
                 <FormControl
                   type="search"
@@ -58,7 +58,7 @@ export const Header = ({ setSearch }) => {
             {userInfo ? (
               <>
                 <Nav.Link>
-                  <Link to="/myideas">My Ideas</Link>
+                  <Link to="/myprojects">My Projects</Link>
                 </Nav.Link>
                 <NavDropdown title={userInfo.name} id="navbarScrollingDropdown">
                   <NavDropdown.Item>

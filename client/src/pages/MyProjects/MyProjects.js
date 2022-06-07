@@ -6,42 +6,42 @@ import AccordionItem from "react-bootstrap/esm/AccordionItem";
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteIdeaAction, listIdeas } from "../../actions/ideaActions";
+import { deleteProjectAction, listProjects } from "../../actions/projectActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 
-const MyIdeas = ({ search }) => {
+const MyProjects = ({ search }) => {
   const dispatch = useDispatch();
-  const ideasList = useSelector((state) => state.ideasList);
+  const projectsList = useSelector((state) => state.projectsList);
 
-  const { loading, ideas, error } = ideasList;
+  const { loading, projects, error } = projectsList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const ideaCreate = useSelector((state) => state.ideaCreate);
-  const { success: successCreate } = ideaCreate;
+  const projectCreate = useSelector((state) => state.projectCreate);
+  const { success: successCreate } = projectCreate;
 
-  const ideaUpdate = useSelector((state) => state.ideaUpdate);
-  const { success: successUpdate } = ideaUpdate;
+  const projectUpdate = useSelector((state) => state.projectUpdate);
+  const { success: successUpdate } = projectUpdate;
 
-  const ideaDelete = useSelector((state) => state.ideaDelete);
+  const projectDelete = useSelector((state) => state.projectDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = ideaDelete;
+  } = projectDelete;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure ?")) {
-      dispatch(deleteIdeaAction(id));
+      dispatch(deleteProjectAction(id));
     }
   };
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(listIdeas());
+    dispatch(listProjects());
     if (!userInfo) {
       navigate("/");
     }
@@ -57,28 +57,27 @@ const MyIdeas = ({ search }) => {
   return (
     <div>
       <MainPage title={`Welcome back ${userInfo.name}`}>
-        <Link to="/addidea">
+        <Link to="/addproject">
           <Button style={{ marginLeft: 10, marginBottom: 5 }} size="md">
-            Add idea
+            Add project
           </Button>
         </Link>
         {error && <ErrorMessage variant="danger" children={error} />}
         {errorDelete && (
           <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
         )}
-        {loading && <Loading />}
-        {loadingDelete && <Loading />}
-        {ideas &&
-          ideas
-            .filter((filteredIdea) =>
-              filteredIdea.title.toLowerCase().includes(search.toLowerCase())
+        {(loading || loadingDelete) && <Loading />}
+        {projects &&
+          projects
+            .filter((filteredProject) =>
+              filteredProject.title.toLowerCase().includes(search.toLowerCase())
             )
-            .filter((filteredIdea) =>
-              filteredIdea.user === userInfo._id
+            .filter((filteredProject) =>
+              filteredProject.user === userInfo._id
             )
             .reverse()
-            .map((idea) => (
-              <Accordion key={idea._id}>
+            .map((project) => (
+              <Accordion key={project._id}>
                 <AccordionItem eventKey="0" style={{ margin: 10 }}>
                   <AccordionHeader style={{ display: "flex" }}>
                     <span
@@ -91,14 +90,14 @@ const MyIdeas = ({ search }) => {
                         fontSize: 18,
                       }}
                     >
-                      {idea.title}
+                      {project.title}
                     </span>
                     <div>
-                      <Button href={`/idea/${idea._id}`}>Edit</Button>
+                      <Button href={`/project/${project._id}`}>Edit</Button>
                       <Button
                         variant="danger"
                         className="mx-2"
-                        onClick={() => deleteHandler(idea._id)}
+                        onClick={() => deleteHandler(project._id)}
                       >
                         Delete
                       </Button>
@@ -108,20 +107,20 @@ const MyIdeas = ({ search }) => {
                   <AccordionBody>
                     <span>
                       <Badge pill bg="success">
-                        {idea.category}
+                        {project.category}
                       </Badge>
                     </span>
                     <span>
                       <Badge pill bg="warning" style={{ marginLeft: 5 }}>
-                        {idea.duration}
+                        {project.duration}
                       </Badge>
                     </span>
                     <blockquote className="blockquote mb-0">
-                      <p>{idea.content}</p>
+                      <p>{project.content}</p>
                       <footer className="blockquote-footer">
                         Created on{" "}
                         <cite title="Source Title">
-                          {idea.createdAt.substring(0, 10)}
+                          {project.createdAt.substring(0, 10)}
                         </cite>
                       </footer>
                     </blockquote>
@@ -134,4 +133,4 @@ const MyIdeas = ({ search }) => {
   );
 };
 
-export default MyIdeas;
+export default MyProjects;

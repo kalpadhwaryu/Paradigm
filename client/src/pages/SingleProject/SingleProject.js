@@ -6,10 +6,10 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainPage from "../../components/MainPage";
 import ReactMarkdown from "react-markdown";
-import { deleteIdeaAction, updateIdeaAction } from "../../actions/ideaActions";
+import { deleteProjectAction, updateProjectAction } from "../../actions/projectActions";
 import { useNavigate, useParams } from "react-router-dom";
 
-const SingleIdea = () => {
+const SingleProject = () => {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
@@ -18,26 +18,26 @@ const SingleIdea = () => {
 
   const dispatch = useDispatch();
 
-  const ideaUpdate = useSelector((state) => state.ideaUpdate);
-  const { loading, error } = ideaUpdate;
+  const projectUpdate = useSelector((state) => state.projectUpdate);
+  const { loading, error } = projectUpdate;
 
-  const ideaDelete = useSelector((state) => state.ideaDelete);
-  const { loading: loadingDelete, error: errorDelete } = ideaDelete;
+  const projectDelete = useSelector((state) => state.projectDelete);
+  const { loading: loadingDelete, error: errorDelete } = projectDelete;
 
   let navigate = useNavigate();
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
-      dispatch(deleteIdeaAction(id));
+      dispatch(deleteProjectAction(id));
     }
-    navigate("/myideas");
+    navigate("/myprojects");
   };
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`/api/ideas/${id}`);
+      const { data } = await axios.get(`/api/projects/${id}`);
 
       setTitle(data.title);
       setContent(data.content);
@@ -58,17 +58,17 @@ const SingleIdea = () => {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateIdeaAction(id, title, content, category, duration));
+    dispatch(updateProjectAction(id, title, content, category, duration));
     if (!title || !content || !category || !duration) return;
 
     resetHandler();
-    navigate("/myideas");
+    navigate("/myprojects");
   };
 
   return (
-    <MainPage title="Edit Idea">
+    <MainPage title="Edit Project">
       <Card style={{ marginTop: 5, marginBottom: 5 }}>
-        <Card.Header>Edit your Idea</Card.Header>
+        <Card.Header>Edit your Project</Card.Header>
         <Card.Body>
           <Form onSubmit={updateHandler}>
             {loadingDelete && <Loading />}
@@ -108,7 +108,7 @@ const SingleIdea = () => {
             >
               {content && (
                 <Card>
-                  <Card.Header>Idea Preview</Card.Header>
+                  <Card.Header>Project Preview</Card.Header>
                   <Card.Body>
                     <ReactMarkdown>{content}</ReactMarkdown>
                   </Card.Body>
@@ -142,14 +142,14 @@ const SingleIdea = () => {
             {loading && <Loading size={50} />}
             <Form.Group style={{ marginTop: 15 }}>
               <Button variant="primary" type="submit">
-                Update Idea
+                Update Project
               </Button>
               <Button
                 className="mx-2"
                 variant="danger"
                 onClick={() => deleteHandler(id)}
               >
-                Delete Idea
+                Delete Project
               </Button>
             </Form.Group>
           </Form>
@@ -163,4 +163,4 @@ const SingleIdea = () => {
   );
 };
 
-export default SingleIdea;
+export default SingleProject;

@@ -10,7 +10,7 @@ const LandingPage = () => {
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
-      navigate("/myideas")
+      navigate("/myprojects")
     }
   }, [navigate]);
 

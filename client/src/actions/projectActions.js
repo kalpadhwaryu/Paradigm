@@ -1,23 +1,23 @@
 import axios from "axios";
 import {
-  IDEAS_CREATE_FAIL,
-  IDEAS_CREATE_REQUEST,
-  IDEAS_CREATE_SUCCESS,
-  IDEAS_DELETE_FAIL,
-  IDEAS_DELETE_REQUEST,
-  IDEAS_DELETE_SUCCESS,
-  IDEAS_LIST_FAIL,
-  IDEAS_LIST_REQUEST,
-  IDEAS_LIST_SUCCESS,
-  IDEAS_UPDATE_FAIL,
-  IDEAS_UPDATE_REQUEST,
-  IDEAS_UPDATE_SUCCESS,
-} from "../constants/ideaConstants";
+  PROJECTS_CREATE_FAIL,
+  PROJECTS_CREATE_REQUEST,
+  PROJECTS_CREATE_SUCCESS,
+  PROJECTS_DELETE_FAIL,
+  PROJECTS_DELETE_REQUEST,
+  PROJECTS_DELETE_SUCCESS,
+  PROJECTS_LIST_FAIL,
+  PROJECTS_LIST_REQUEST,
+  PROJECTS_LIST_SUCCESS,
+  PROJECTS_UPDATE_FAIL,
+  PROJECTS_UPDATE_REQUEST,
+  PROJECTS_UPDATE_SUCCESS,
+} from "../constants/projectConstants";
 
-export const listIdeas = () => async (dispatch, getState) => {
+export const listProjects = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: IDEAS_LIST_REQUEST,
+      type: PROJECTS_LIST_REQUEST,
     });
 
     const {
@@ -30,10 +30,10 @@ export const listIdeas = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/ideas`, config);
+    const { data } = await axios.get(`/api/projects`, config);
 
     dispatch({
-      type: IDEAS_LIST_SUCCESS,
+      type: PROJECTS_LIST_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -42,17 +42,17 @@ export const listIdeas = () => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: IDEAS_LIST_FAIL,
+      type: PROJECTS_LIST_FAIL,
       payload: message,
     });
   }
 };
 
-export const createIdeaAction =
+export const createProjectAction =
   (title, content, category, duration) => async (dispatch, getState) => {
     try {
       dispatch({
-        type: IDEAS_CREATE_REQUEST,
+        type: PROJECTS_CREATE_REQUEST,
       });
 
       const {
@@ -67,13 +67,13 @@ export const createIdeaAction =
       };
 
       const { data } = await axios.post(
-        `/api/ideas/create`,
+        `/api/projects/create`,
         { title, content, category, duration },
         config
       );
 
       dispatch({
-        type: IDEAS_CREATE_SUCCESS,
+        type: PROJECTS_CREATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
@@ -82,16 +82,16 @@ export const createIdeaAction =
           ? error.response.data.message
           : error.message;
       dispatch({
-        type: IDEAS_CREATE_FAIL,
+        type: PROJECTS_CREATE_FAIL,
         payload: message,
       });
     }
   };
 
-export const deleteIdeaAction = (id) => async (dispatch, getState) => {
+export const deleteProjectAction = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: IDEAS_DELETE_REQUEST,
+      type: PROJECTS_DELETE_REQUEST,
     });
 
     const {
@@ -104,10 +104,10 @@ export const deleteIdeaAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/api/ideas/${id}`, config);
+    const { data } = await axios.delete(`/api/projects/${id}`, config);
 
     dispatch({
-      type: IDEAS_DELETE_SUCCESS,
+      type: PROJECTS_DELETE_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -116,17 +116,17 @@ export const deleteIdeaAction = (id) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: IDEAS_DELETE_FAIL,
+      type: PROJECTS_DELETE_FAIL,
       payload: message,
     });
   }
 };
 
-export const updateIdeaAction =
+export const updateProjectAction =
   (id, title, content, category, duration) => async (dispatch, getState) => {
     try {
       dispatch({
-        type: IDEAS_UPDATE_REQUEST,
+        type: PROJECTS_UPDATE_REQUEST,
       });
 
       const {
@@ -141,13 +141,13 @@ export const updateIdeaAction =
       };
 
       const { data } = await axios.put(
-        `/api/ideas/${id}`,
+        `/api/projects/${id}`,
         { title, content, category, duration },
         config
       );
 
       dispatch({
-        type: IDEAS_UPDATE_SUCCESS,
+        type: PROJECTS_UPDATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
@@ -156,7 +156,7 @@ export const updateIdeaAction =
           ? error.response.data.message
           : error.message;
       dispatch({
-        type: IDEAS_UPDATE_FAIL,
+        type: PROJECTS_UPDATE_FAIL,
         payload: message,
       });
     }

@@ -3,17 +3,16 @@ import Footer from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MyIdeas from "./pages/MyIdeas/MyIdeas";
+import MyProjects from "./pages/MyProjects/MyProjects";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import AddIdea from "./pages/AddIdea/AddIdea";
-import SingleIdea from "./pages/SingleIdea/SingleIdea";
+import AddProject from "./pages/AddProject/AddProject";
+import SingleProject from "./pages/SingleProject/SingleProject";
 import { useState } from "react";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const [search, setSearch] = useState("");
-  console.log(search);
 
   return (
     <Router>
@@ -24,9 +23,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/myideas" element={<MyIdeas search={search} />} />
-          <Route path="/addidea" element={<AddIdea />} />
-          <Route path="/idea/:id" element={<SingleIdea />} />
+          <Route path="/myprojects" element={<MyProjects search={search} />} />
+          <Route path="/addproject" element={<AddProject />} />
+          <Route path="/project/:id" element={<SingleProject />} />
         </Routes>
       </main>
       <Footer />

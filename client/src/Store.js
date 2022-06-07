@@ -3,20 +3,20 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userLoginReducer, userRegisterReducer, userUpdateReducer } from "./reducers/userReducers";
 import {
-  ideaCreateReducer,
-  ideaDeleteReducer,
-  ideaListReducer,
-  ideaUpdateReducer,
-} from "./reducers/ideaReducers";
+  projectCreateReducer,
+  projectDeleteReducer,
+  projectListReducer,
+  projectUpdateReducer,
+} from "./reducers/projectReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userUpdate: userUpdateReducer,
-  ideasList: ideaListReducer,
-  ideaCreate: ideaCreateReducer,
-  ideaDelete: ideaDeleteReducer,
-  ideaUpdate: ideaUpdateReducer,
+  projectsList: projectListReducer,
+  projectCreate: projectCreateReducer,
+  projectDelete: projectDeleteReducer,
+  projectUpdate: projectUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

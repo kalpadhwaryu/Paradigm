@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createIdeaAction } from "../../actions/ideaActions";
+import { createProjectAction } from "../../actions/projectActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainPage from "../../components/MainPage";
 import ReactMarkdown from "react-markdown";
 
-const AddIdea = () => {
+const AddProject = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
@@ -16,8 +16,8 @@ const AddIdea = () => {
 
   const dispatch = useDispatch();
 
-  const ideaCreate = useSelector((state) => state.ideaCreate);
-  const { loading, error, idea } = ideaCreate;
+  const projectCreate = useSelector((state) => state.projectCreate);
+  const { loading, error, project } = projectCreate;
 
   const resetHandler = () => {
     setTitle("");
@@ -30,19 +30,19 @@ const AddIdea = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createIdeaAction(title, content, category, duration));
+    dispatch(createProjectAction(title, content, category, duration));
     if (!title || !content || !category || !duration) return;
 
     resetHandler();
-    navigate("/myideas");
+    navigate("/myprojects");
   };
 
   useEffect(() => {}, []);
 
   return (
-    <MainPage title="Add an Idea">
+    <MainPage title="Add an Project">
       <Card style={{ marginTop: 5, marginBottom: 5 }}>
-        <Card.Header>Add a new Idea</Card.Header>
+        <Card.Header>Add a new Project</Card.Header>
         <Card.Body>
           <Form onSubmit={submitHandler}>
             {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
@@ -75,7 +75,7 @@ const AddIdea = () => {
             <Form.Group style={{ marginTop: 10, marginBottom: 5 }}>
               {content && (
                 <Card>
-                  <Card.Header>Idea Preview</Card.Header>
+                  <Card.Header>Project Preview</Card.Header>
                   <Card.Body>
                     <ReactMarkdown>{content}</ReactMarkdown>
                   </Card.Body>
@@ -109,7 +109,7 @@ const AddIdea = () => {
             {loading && <Loading size={50} />}
             <Form.Group style={{ marginTop: 15 }}>
               <Button type="submit" variant="primary">
-                Add Idea
+                Add Project
               </Button>
               <Button className="mx-2" onClick={resetHandler} variant="danger">
                 Reset Fields
@@ -126,4 +126,4 @@ const AddIdea = () => {
   );
 };
 
-export default AddIdea;
+export default AddProject;
