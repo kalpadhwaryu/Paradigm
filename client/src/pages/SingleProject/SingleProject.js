@@ -6,7 +6,10 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainPage from "../../components/MainPage";
 import ReactMarkdown from "react-markdown";
-import { deleteProjectAction, updateProjectAction } from "../../actions/projectActions";
+import {
+  deleteProjectAction,
+  updateProjectAction,
+} from "../../actions/projectActions";
 import { useNavigate, useParams } from "react-router-dom";
 
 const SingleProject = () => {
@@ -15,6 +18,10 @@ const SingleProject = () => {
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
   const [duration, setDuration] = useState("");
+  const [status, setStatus] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
 
   const dispatch = useDispatch();
 
@@ -23,6 +30,10 @@ const SingleProject = () => {
 
   const projectDelete = useSelector((state) => state.projectDelete);
   const { loading: loadingDelete, error: errorDelete } = projectDelete;
+
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
 
   let navigate = useNavigate();
 
@@ -44,6 +55,10 @@ const SingleProject = () => {
       setCategory(data.category);
       setDate(data.updatedAt);
       setDuration(data.duration);
+      setStatus(data.status);
+      setClientName(data.clientName);
+      setClientEmail(data.clientEmail);
+      setClientPhone(data.clientPhone);
     };
 
     fetching();
@@ -54,12 +69,28 @@ const SingleProject = () => {
     setCategory("");
     setContent("");
     setDuration("");
+    setStatus("");
+    setClientName("");
+    setClientEmail("");
+    setClientPhone("");
   };
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateProjectAction(id, title, content, category, duration));
-    if (!title || !content || !category || !duration) return;
+    dispatch(
+      updateProjectAction(
+        id,
+        title,
+        content,
+        category,
+        duration,
+        clientName,
+        clientEmail,
+        clientPhone,
+        status
+      )
+    );
+    if (!title || !content || !category || !duration || !status) return;
 
     resetHandler();
     navigate("/myprojects");
@@ -78,9 +109,15 @@ const SingleProject = () => {
             )}
             <Form.Group
               controlId="title"
+              style={{ marginTop: 5, marginBottom: 5, color: "red" }}
+            >
+              <Form.Label>Fields with * are mandatory</Form.Label>
+            </Form.Group>
+            <Form.Group
+              controlId="title"
               style={{ marginTop: 5, marginBottom: 5 }}
             >
-              <Form.Label>Title</Form.Label>
+              <Form.Label><span style={{ color: "red" }}>*</span>Title</Form.Label>
               <Form.Control
                 type="title"
                 placeholder="Enter the title"
@@ -93,7 +130,7 @@ const SingleProject = () => {
               controlId="content"
               style={{ marginTop: 5, marginBottom: 5 }}
             >
-              <Form.Label>Content</Form.Label>
+              <Form.Label><span style={{ color: "red" }}>*</span>Content</Form.Label>
               <Form.Control
                 as="textarea"
                 placeholder="Enter the content"
@@ -119,7 +156,7 @@ const SingleProject = () => {
               controlId="content"
               style={{ marginTop: 5, marginBottom: 5 }}
             >
-              <Form.Label>Category</Form.Label>
+              <Form.Label><span style={{ color: "red" }}>*</span>Category</Form.Label>
               <Form.Control
                 type="content"
                 placeholder="Enter the Category"
@@ -131,12 +168,87 @@ const SingleProject = () => {
               controlId="content"
               style={{ marginTop: 5, marginBottom: 5 }}
             >
-              <Form.Label>Duration</Form.Label>
+              <Form.Label><span style={{ color: "red" }}>*</span>Duration</Form.Label>
               <Form.Control
                 type="content"
                 value={duration}
                 placeholder="Enter the duration"
                 onChange={(e) => setDuration(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group
+              controlId="content"
+              style={{ marginTop: 5, marginBottom: 5 }}
+            >
+              <Form.Label>Client Name</Form.Label>
+              <Form.Control
+                type="content"
+                value={clientName}
+                placeholder="Enter the client name"
+                onChange={(e) => setClientName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group
+              controlId="content"
+              style={{ marginTop: 5, marginBottom: 5 }}
+            >
+              <Form.Label>Client Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={clientEmail}
+                placeholder="Enter the client email"
+                onChange={(e) => setClientEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group
+              controlId="content"
+              style={{ marginTop: 5, marginBottom: 5 }}
+            >
+              <Form.Label>Client Phone</Form.Label>
+              <Form.Control
+                type="number"
+                value={clientPhone}
+                placeholder="Enter the client phone number"
+                onChange={(e) => setClientPhone(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group style={{ marginTop: 15, marginBottom: 5 }}>
+              <Form.Label><span style={{ color: "red" }}>*</span>Status</Form.Label>
+              <Form.Check
+                type="radio"
+                label="Just an idea"
+                value="Just an idea"
+                checked={status === "Just an idea"}
+                name="group1"
+                style={{ marginLeft: 30 }}
+                onClick={handleStatusChange}
+              />
+              <Form.Check
+                type="radio"
+                label="Prototype ready"
+                value="Prototype ready"
+                checked={status === "Prototype ready"}
+                name="group1"
+                style={{ marginLeft: 30 }}
+                onClick={handleStatusChange}
+              />
+              <Form.Check
+                type="radio"
+                label="In progress"
+                value="In progress"
+                checked={status === "In progress"}
+                name="group1"
+                style={{ marginLeft: 30 }}
+                onClick={handleStatusChange}
+              />
+              <Form.Check
+                type="radio"
+                label="Completed"
+                value="Completed"
+                checked={status === "Completed"}
+                name="group1"
+                style={{ marginLeft: 30 }}
+                onClick={handleStatusChange}
               />
             </Form.Group>
             {loading && <Loading size={50} />}

@@ -6,7 +6,10 @@ import AccordionItem from "react-bootstrap/esm/AccordionItem";
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader";
 import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProjectAction, listProjects } from "../../actions/projectActions";
+import {
+  deleteProjectAction,
+  listProjects,
+} from "../../actions/projectActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 
@@ -72,9 +75,7 @@ const MyProjects = ({ search }) => {
             .filter((filteredProject) =>
               filteredProject.title.toLowerCase().includes(search.toLowerCase())
             )
-            .filter((filteredProject) =>
-              filteredProject.user === userInfo._id
-            )
+            .filter((filteredProject) => filteredProject.user === userInfo._id)
             .reverse()
             .map((project) => (
               <Accordion key={project._id}>
@@ -88,6 +89,7 @@ const MyProjects = ({ search }) => {
                         cursor: "pointer",
                         alignSelf: "center",
                         fontSize: 18,
+                        fontFamily: "monospace",
                       }}
                     >
                       {project.title}
@@ -115,8 +117,62 @@ const MyProjects = ({ search }) => {
                         {project.duration}
                       </Badge>
                     </span>
+                    <span>
+                      {project.status === "Completed" ? (
+                        <Badge pill bg="success" style={{ marginLeft: 5 }}>
+                          {project.status}
+                        </Badge>
+                      ) : (
+                        <Badge pill bg="danger" style={{ marginLeft: 5 }}>
+                          {project.status}
+                        </Badge>
+                      )}
+                    </span>
                     <blockquote className="blockquote mb-0">
-                      <p>{project.content}</p>
+                      <p
+                        style={{
+                          marginTop: 15,
+                          marginBottom: 15,
+                          fontSize: 18,
+                          fontFamily: "cursive",
+                        }}
+                      >
+                        {project.content}
+                      </p>
+                      {project.clientName &&
+                      project.clientEmail &&
+                      project.clientPhone ? (
+                        <>
+                          <p
+                            style={{
+                              fontSize: 18,
+                              fontFamily: "revert",                              
+                            }}
+                          >
+                            <b>Client Name:</b> {project.clientName}
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 18,
+                              fontFamily: "revert",
+                              marginTop: -20,
+                            }}
+                          >
+                            <b>Client Email:</b> {project.clientEmail}
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 18,
+                              fontFamily: "revert",
+                              marginTop: -20,
+                            }}
+                          >
+                            <b>Client Phone:</b> {project.clientPhone}
+                          </p>
+                        </>
+                      ) : (
+                        <></>
+                      )}
                       <footer className="blockquote-footer">
                         Created on{" "}
                         <cite title="Source Title">

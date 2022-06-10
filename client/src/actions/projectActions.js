@@ -49,7 +49,17 @@ export const listProjects = () => async (dispatch, getState) => {
 };
 
 export const createProjectAction =
-  (title, content, category, duration) => async (dispatch, getState) => {
+  (
+    title,
+    content,
+    category,
+    duration,
+    clientName,
+    clientEmail,
+    clientPhone,
+    status
+  ) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: PROJECTS_CREATE_REQUEST,
@@ -68,7 +78,16 @@ export const createProjectAction =
 
       const { data } = await axios.post(
         `/api/projects/create`,
-        { title, content, category, duration },
+        {
+          title,
+          content,
+          category,
+          duration,
+          clientName,
+          clientEmail,
+          clientPhone,
+          status,
+        },
         config
       );
 
@@ -123,7 +142,18 @@ export const deleteProjectAction = (id) => async (dispatch, getState) => {
 };
 
 export const updateProjectAction =
-  (id, title, content, category, duration) => async (dispatch, getState) => {
+  (
+    id,
+    title,
+    content,
+    category,
+    duration,
+    clientName,
+    clientEmail,
+    clientPhone,
+    status
+  ) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: PROJECTS_UPDATE_REQUEST,
@@ -142,7 +172,16 @@ export const updateProjectAction =
 
       const { data } = await axios.put(
         `/api/projects/${id}`,
-        { title, content, category, duration },
+        {
+          title,
+          content,
+          category,
+          duration,
+          clientName,
+          clientEmail,
+          clientPhone,
+          status,
+        },
         config
       );
 

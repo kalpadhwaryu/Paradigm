@@ -27,8 +27,8 @@ function App() {
           <Route path="/addproject" element={<AddProject />} />
           <Route path="/project/:id" element={<SingleProject />} />
         </Routes>
+        <Footer />
       </main>
-      <Footer />
     </Router>
   );
 }

@@ -52,6 +52,7 @@
     height: 50px;
   }
   .main{
+    min-height: 86vh;
     background-size: auto;
   }
 }

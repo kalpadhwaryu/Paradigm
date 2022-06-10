@@ -13,7 +13,23 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    clientName: {
+      type: String,
+      required: false,
+    },
+    clientEmail: {
+      type: String,
+      required: false,
+    },
+    clientPhone: {
+      type: Number,
+      required: false,
+    },
     duration: {
+      type: String,
+      required: true,
+    },
+    status: {
       type: String,
       required: true,
     },

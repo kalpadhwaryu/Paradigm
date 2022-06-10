@@ -26,9 +26,24 @@ const getProjectById = expressAsyncHandler(async (req, res) => {
 //@route           GET /api/projects/create
 //@access          Private
 const CreateProject = expressAsyncHandler(async (req, res) => {
-  const { title, content, category, duration } = req.body;
+  const {
+    title,
+    content,
+    category,
+    duration,
+    clientName,
+    clientEmail,
+    clientPhone,
+    status,
+  } = req.body;
 
-  if (!title || !content || !category || !duration) {
+  if (
+    !title ||
+    !content ||
+    !category ||
+    !duration ||
+    !status
+  ) {
     res.status(400);
     throw new Error("Please fill all the fields");
     return;
@@ -39,6 +54,10 @@ const CreateProject = expressAsyncHandler(async (req, res) => {
       content,
       category,
       duration,
+      clientName,
+      clientEmail,
+      clientPhone,
+      status,
     });
 
     const createdProject = await project.save();
@@ -71,7 +90,16 @@ const DeleteProject = expressAsyncHandler(async (req, res) => {
 // @route   PUT /api/projects/:id
 // @access  Private
 const UpdateProject = expressAsyncHandler(async (req, res) => {
-  const { title, content, category, duration } = req.body;
+  const {
+    title,
+    content,
+    category,
+    duration,
+    clientName,
+    clientEmail,
+    clientPhone,
+    status,
+  } = req.body;
 
   const project = await Project.findById(req.params.id);
 
@@ -85,6 +113,10 @@ const UpdateProject = expressAsyncHandler(async (req, res) => {
     project.content = content;
     project.category = category;
     project.duration = duration;
+    project.clientName = clientName;
+    project.clientEmail = clientEmail;
+    project.clientPhone = clientPhone;
+    project.status = status;
 
     const updatedProject = await project.save();
     res.json(updatedProject);
