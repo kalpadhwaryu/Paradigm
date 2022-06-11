@@ -95,9 +95,9 @@ const MyProjects = ({ search }) => {
                       {project.title}
                     </span>
                     <div>
-                      <Button>
-                        <Link to={`/project/${project._id}`}>Edit</Link>
-                      </Button>
+                      <Link to={`/project/${project._id}`}>
+                        <Button>Edit</Button>
+                      </Link>
                       <Button
                         variant="danger"
                         className="mx-2"
