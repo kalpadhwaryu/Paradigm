@@ -1,9 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes");
-const projectRoutes = require("./routes/projectRoutes");
-const { notFound, errorHandler } = require("./middlewares/ErrorMW");
+const connectDB = require("./server/config/db");
+const userRoutes = require("./server/routes/userRoutes");
+const projectRoutes = require("./server/routes/projectRoutes");
+const { notFound, errorHandler } = require("./server/middlewares/ErrorMW");
 const path = require("path");
 
 const app = express();
@@ -13,11 +13,9 @@ dotenv.config();
 connectDB();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join("./client/build")));
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*/*", express.static(path.join(__dirname, "client", "build", "index.html")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(__dirname, "./client/build/index.html")
-  );
 } else {
   app.get("/", (req, res) => {
     res.send("API is running..");
