@@ -95,7 +95,9 @@ const MyProjects = ({ search }) => {
                       {project.title}
                     </span>
                     <div>
-                      <Button href={`/project/${project._id}`}>Edit</Button>
+                      <Button>
+                        <Link to={`/project/${project._id}`}>Edit</Link>
+                      </Button>
                       <Button
                         variant="danger"
                         className="mx-2"
@@ -146,7 +148,7 @@ const MyProjects = ({ search }) => {
                           <p
                             style={{
                               fontSize: 18,
-                              fontFamily: "revert",                              
+                              fontFamily: "revert",
                             }}
                           >
                             <b>Client Name:</b> {project.clientName}
