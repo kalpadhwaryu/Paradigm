@@ -14,11 +14,7 @@ connectDB();
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
-  app.get(
-    "/*",
-    express.static(path.join(__dirname, "client", "build", "index.html"))
-  );
-  app.get(
+  app.use(
     "*/*",
     express.static(path.join(__dirname, "client", "build", "index.html"))
   );
