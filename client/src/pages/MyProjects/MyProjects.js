@@ -136,7 +136,7 @@ const MyProjects = ({ search }) => {
                           marginTop: 15,
                           marginBottom: 15,
                           fontSize: 18,
-                          fontFamily: "cursive",
+                          fontFamily: "monospace",
                         }}
                       >
                         {project.content}

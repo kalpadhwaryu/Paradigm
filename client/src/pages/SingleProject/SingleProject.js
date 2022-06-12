@@ -206,9 +206,10 @@ const SingleProject = () => {
             >
               <Form.Label>Client Phone</Form.Label>
               <Form.Control
-                type="number"
+                type="tel"
                 value={clientPhone}
                 placeholder="Enter the client phone number"
+                maxLength={10}
                 onChange={(e) => setClientPhone(e.target.value)}
               />
             </Form.Group>

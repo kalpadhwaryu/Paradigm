@@ -55,4 +55,12 @@
     min-height: 86vh;
     background-size: auto;
   }
+  .buttonContainer{
+    margin-top: 30px;
+    display: block;
+  }
+  .landingBtn{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 }
