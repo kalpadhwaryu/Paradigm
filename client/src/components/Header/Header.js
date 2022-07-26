@@ -40,9 +40,8 @@ export const Header = ({ setSearch }) => {
                 <FormControl
                   type="search"
                   placeholder="Search"
-                  className=""
+                  className="mr-sm-2"
                   aria-label="Search"
-                  style={{ width: 400 }}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </Form>
