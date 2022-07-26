@@ -22,7 +22,7 @@ Paradigm is built using the following:
 ## Setup
 
 - Download or clone the repository
-- Add a .env file with `PORT`, `DATABASE_URL`, `NODE_ENV` & `JWT_SECRET` as keys.
+- Add a .env file in root directory with `PORT`, `DATABASE_URL`, `NODE_ENV` & `JWT_SECRET` as keys.
 - Run `npm install` to install backend dependencies.
 - Go to `client` folder and run `npm install` to install frontend dependencies.
 - Run `npm build` to make a production build of the frontend.
