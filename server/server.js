@@ -1,5 +1,4 @@
 const express = require("express");
-const ideas = require("./data/ideas");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
@@ -15,10 +14,6 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("API is running");
 });
-
-// app.get("/api/ideas", (req, res) => {
-//   res.json(ideas);
-// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);
