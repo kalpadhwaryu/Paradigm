@@ -4,7 +4,7 @@ A platform that organizes project ideas and manages project implementation built
 
 ## Demo
 
-Checkout the demo at https://the-paradigm.herokuapp.com/
+Checkout the demo at https://paradigm.onrender.com/
 
 ## Built with
 
